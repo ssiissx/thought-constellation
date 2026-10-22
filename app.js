@@ -547,7 +547,7 @@
         ${installEvt && !standalone() ? `<button class="s-btn" data-act="install">홈 화면에 설치${I.ext}</button>` : ''}
         <button class="s-btn" data-act="credits">사진 출처 ${Object.keys(CREDIT).length}장${I.ext}</button>
       </div>
-      <p class="s-note">철학·심리학 인물 ${P.length}명을 태어난 순서로 엮었어요. 글은 데스크톱판 ‘생각의 별자리’에서 사실 검증을 거친 내용을 옮겼고, 핵심 세 줄은 그 내용을 요약한 거예요. 갈피와 설정은 이 기기의 브라우저에만 저장돼요.</p>`);
+      <p class="s-note">철학·심리학 인물 ${P.length}명을 태어난 순서로 엮었어요. 명언 출처·연도·생존 여부처럼 틀리기 쉬운 부분은 따로 확인했고, 핵심 세 줄은 본문을 요약한 거예요. 갈피와 설정은 이 기기의 브라우저에만 저장돼요.</p>`);
   }
   function creditsSheet() {
     openSheet(`<h2>사진 출처</h2><p class="s-sub">위키미디어 공용 · 도감 톤으로 색을 바꿔 썼어요</p>
