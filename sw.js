@@ -1,0 +1,37 @@
+// 오프라인 지원: 처음 열 때 앱 전체(글·사진·글꼴)를 폰에 저장해 두고, 이후엔 저장본을 먼저 쓴다.
+// 버전과 저장할 파일 목록은 build.js가 채운다. 버전이 바뀌면 새 저장본으로 통째로 바꾼다.
+const VERSION = "76585629b3";
+const CACHE = 'tc-' + VERSION;
+const PRECACHE = ["./","./app.js","./data.js","./fonts/cormorant-i.woff2","./fonts/gowun-b.woff2","./fonts/gowun.woff2","./fonts/seal.woff2","./fonts/songmyung.woff2","./icons/apple-touch-icon.png","./icons/favicon.png","./icons/icon-192.png","./icons/icon-512.png","./icons/maskable-512.png","./img/adler.webp","./img/annafreud.webp","./img/anselm.webp","./img/aquinas.webp","./img/arendt.webp","./img/aristotle.webp","./img/augustine.webp","./img/averroes.webp","./img/bacon.webp","./img/bandura.webp","./img/beauvoir.webp","./img/bentham.webp","./img/berkeley.webp","./img/binet.webp","./img/bruner.webp","./img/buddha.webp","./img/calkins.webp","./img/camus.webp","./img/chalmers.webp","./img/choehangi.webp","./img/chomsky.webp","./img/confucius.webp","./img/csikszentmihalyi.webp","./img/damasio.webp","./img/darwin.webp","./img/democritus.webp","./img/derrida.webp","./img/descartes.webp","./img/dewey.webp","./img/diogenes.webp","./img/dweck.webp","./img/ebbinghaus.webp","./img/ellis.webp","./img/epictetus.webp","./img/epicurus.webp","./img/erikson.webp","./img/fechner.webp","./img/foucault.webp","./img/frankl.webp","./img/frege.webp","./img/freud.webp","./img/galton.webp","./img/gardner.webp","./img/gazzaniga.webp","./img/ghazali.webp","./img/habermas.webp","./img/haidt.webp","./img/hanfeizi.webp","./img/hegel.webp","./img/heidegger.webp","./img/helmholtz.webp","./img/heraclitus.webp","./img/hobbes.webp","./img/horney.webp","./img/huineng.webp","./img/hume.webp","./img/husserl.webp","./img/hypatia.webp","./img/ibnsina.webp","./img/james.webp","./img/jung.webp","./img/kahneman.webp","./img/kant.webp","./img/kierkegaard.webp","./img/klein.webp","./img/kohler.webp","./img/kuhn.webp","./img/laozi.webp","./img/leibniz.webp","./img/lewin.webp","./img/locke.webp","./img/loftus.webp","./img/machiavelli.webp","./img/maimonides.webp","./img/marcus.webp","./img/marx.webp","./img/maslow.webp","./img/mencius.webp","./img/merleauponty.webp","./img/milgram.webp","./img/mill.webp","./img/montaigne.webp","./img/mozi.webp","./img/nagarjuna.webp","./img/nietzsche.webp","./img/nozick.webp","./img/nussbaum.webp","./img/ockham.webp","./img/parmenides.webp","./img/pascal.webp","./img/pavlov.webp","./img/peirce.webp","./img/piaget.webp","./img/plato.webp","./img/plotinus.webp","./img/popper.webp","./img/protagoras.webp","./img/pythagoras.webp","./img/quine.webp","./img/rawls.webp","./img/rogers.webp","./img/rousseau.webp","./img/russell.webp","./img/sartre.webp","./img/schopenhauer.webp","./img/searle.webp","./img/seligman.webp","./img/seneca.webp","./img/singer.webp","./img/skinner.webp","./img/smith.webp","./img/socrates.webp","./img/sperry.webp","./img/spinoza.webp","./img/t/adler.webp","./img/t/annafreud.webp","./img/t/anselm.webp","./img/t/aquinas.webp","./img/t/arendt.webp","./img/t/aristotle.webp","./img/t/augustine.webp","./img/t/averroes.webp","./img/t/bacon.webp","./img/t/bandura.webp","./img/t/beauvoir.webp","./img/t/bentham.webp","./img/t/berkeley.webp","./img/t/binet.webp","./img/t/bruner.webp","./img/t/buddha.webp","./img/t/calkins.webp","./img/t/camus.webp","./img/t/chalmers.webp","./img/t/choehangi.webp","./img/t/chomsky.webp","./img/t/confucius.webp","./img/t/csikszentmihalyi.webp","./img/t/damasio.webp","./img/t/darwin.webp","./img/t/democritus.webp","./img/t/derrida.webp","./img/t/descartes.webp","./img/t/dewey.webp","./img/t/diogenes.webp","./img/t/dweck.webp","./img/t/ebbinghaus.webp","./img/t/ellis.webp","./img/t/epictetus.webp","./img/t/epicurus.webp","./img/t/erikson.webp","./img/t/fechner.webp","./img/t/foucault.webp","./img/t/frankl.webp","./img/t/frege.webp","./img/t/freud.webp","./img/t/galton.webp","./img/t/gardner.webp","./img/t/gazzaniga.webp","./img/t/ghazali.webp","./img/t/habermas.webp","./img/t/haidt.webp","./img/t/hanfeizi.webp","./img/t/hegel.webp","./img/t/heidegger.webp","./img/t/helmholtz.webp","./img/t/heraclitus.webp","./img/t/hobbes.webp","./img/t/horney.webp","./img/t/huineng.webp","./img/t/hume.webp","./img/t/husserl.webp","./img/t/hypatia.webp","./img/t/ibnsina.webp","./img/t/james.webp","./img/t/jung.webp","./img/t/kahneman.webp","./img/t/kant.webp","./img/t/kierkegaard.webp","./img/t/klein.webp","./img/t/kohler.webp","./img/t/kuhn.webp","./img/t/laozi.webp","./img/t/leibniz.webp","./img/t/lewin.webp","./img/t/locke.webp","./img/t/loftus.webp","./img/t/machiavelli.webp","./img/t/maimonides.webp","./img/t/marcus.webp","./img/t/marx.webp","./img/t/maslow.webp","./img/t/mencius.webp","./img/t/merleauponty.webp","./img/t/milgram.webp","./img/t/mill.webp","./img/t/montaigne.webp","./img/t/mozi.webp","./img/t/nagarjuna.webp","./img/t/nietzsche.webp","./img/t/nozick.webp","./img/t/nussbaum.webp","./img/t/ockham.webp","./img/t/parmenides.webp","./img/t/pascal.webp","./img/t/pavlov.webp","./img/t/peirce.webp","./img/t/piaget.webp","./img/t/plato.webp","./img/t/plotinus.webp","./img/t/popper.webp","./img/t/protagoras.webp","./img/t/pythagoras.webp","./img/t/quine.webp","./img/t/rawls.webp","./img/t/rogers.webp","./img/t/rousseau.webp","./img/t/russell.webp","./img/t/sartre.webp","./img/t/schopenhauer.webp","./img/t/searle.webp","./img/t/seligman.webp","./img/t/seneca.webp","./img/t/singer.webp","./img/t/skinner.webp","./img/t/smith.webp","./img/t/socrates.webp","./img/t/sperry.webp","./img/t/spinoza.webp","./img/t/thales.webp","./img/t/thorndike.webp","./img/t/titchener.webp","./img/t/toegye.webp","./img/t/tolman.webp","./img/t/turing.webp","./img/t/vygotsky.webp","./img/t/wangyangming.webp","./img/t/watson.webp","./img/t/wertheimer.webp","./img/t/wittgenstein.webp","./img/t/wollstonecraft.webp","./img/t/wonhyo.webp","./img/t/wundt.webp","./img/t/xunzi.webp","./img/t/yulgok.webp","./img/t/zhuangzi.webp","./img/t/zhuxi.webp","./img/t/zimbardo.webp","./img/thales.webp","./img/thorndike.webp","./img/titchener.webp","./img/toegye.webp","./img/tolman.webp","./img/turing.webp","./img/vygotsky.webp","./img/wangyangming.webp","./img/watson.webp","./img/wertheimer.webp","./img/wittgenstein.webp","./img/wollstonecraft.webp","./img/wonhyo.webp","./img/wundt.webp","./img/xunzi.webp","./img/yulgok.webp","./img/zhuangzi.webp","./img/zhuxi.webp","./img/zimbardo.webp","./manifest.webmanifest","./paper.png","./style.css"];
+
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    // HTTP 캐시를 거치지 않고 새로 받아야 옛 파일이 섞이지 않는다
+    await cache.addAll(PRECACHE.map(url => new Request(url, { cache: 'reload' })));
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    for (const key of await caches.keys()) if (key.startsWith('tc-') && key !== CACHE) await caches.delete(key);
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', event => {
+  const req = event.request;
+  if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    // 주소 뒤의 ?v=나 #은 무시하고 같은 파일로 본다
+    const hit = await cache.match(req, { ignoreSearch: true });
+    if (hit) return hit;
+    if (req.mode === 'navigate') {
+      const shell = await cache.match('./');
+      if (shell) return shell;
+    }
+    return fetch(req);
+  })());
+});
